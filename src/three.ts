@@ -26,7 +26,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
 const FOV = 50;
-const CAMERA_NEAR = 0.1;
+const CAMERA_NEAR = 1;
 const CAMERA_FAR = 160;
 const ASPECT_RATIO = viewport.aspectRatio;
 
@@ -39,55 +39,48 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.set(0, 0, 50);
 
-{
-  const near = 1;
-  const far = 150;
-  const color = 0xb0cec8;
-  scene.fog = new THREE.Fog(color, near, far);
-}
+// {
+//   const near = 1;
+//   const far = 150;
+//   const color = 0xb0cec8;
+//   scene.fog = new THREE.Fog(color, near, far);
+// }
 
 const sectionsInfo = [
   {
     images: [
-      "https://assets.codepen.io/2479807/grid-photo-4.jpg",
-      "https://assets.codepen.io/2479807/grid-photo-3.jpg",
-      "https://assets.codepen.io/2479807/grid-photo-2.jpg",
-      "https://assets.codepen.io/2479807/grid-photo-1.jpg",
+      "https://clonesneverdie.com/assets/toon1/2.png",
+      "https://clonesneverdie.com/assets/toon1/3.png",
     ],
 
-    title: "Januar",
+    title: "In the beginning, God said they should be there.",
   },
 
   {
     images: [
-      "https://assets.codepen.io/2479807/scroll-1.jpg",
-      "https://assets.codepen.io/2479807/scroll-2.jpg",
-      "https://assets.codepen.io/2479807/scroll-3.jpg",
+      "https://clonesneverdie.com/assets/toon1/4.png",
+      "https://clonesneverdie.com/assets/toon1/5.png",
     ],
 
-    title: "Februar",
+    title: "Second",
   },
 
   {
     images: [
-      "https://assets.codepen.io/2479807/img-5.jpg",
-      "https://assets.codepen.io/2479807/img-6.jpg",
-      "https://assets.codepen.io/2479807/img-7.jpg",
-      "https://assets.codepen.io/2479807/img-8.jpg",
+      "https://clonesneverdie.com/assets/toon1/6.png",
+      "https://clonesneverdie.com/assets/toon1/7.png",
     ],
 
-    title: "Mars",
+    title: "Third",
   },
 
   {
     images: [
-      "https://assets.codepen.io/2479807/bike-1.jpg",
-      "https://assets.codepen.io/2479807/bike-2.jpg",
-      "https://assets.codepen.io/2479807/bike-3.jpg",
-      "https://assets.codepen.io/2479807/grid-photo-1.jpg",
+      "https://clonesneverdie.com/assets/toon1/8.png",
+      "https://clonesneverdie.com/assets/toon1/9.png",
     ],
 
-    title: "April",
+    title: "Fourth",
   },
 ];
 
@@ -109,21 +102,32 @@ const makePlane = (width: any, height: any, image: any) => {
   return mesh;
 };
 
+// const setImagesPositions = (image: any, index: any) => {
+//   if (index === 0) {
+//     // Top left
+//     gsap.set(image, { x: -20, y: 20, z: "-=20" });
+//   } else if (index === 1) {
+//     // Bottom left
+//     gsap.set(image, { x: -20, y: -20, z: "-=80" });
+//   } else if (index === 2) {
+//     // Top right
+//     gsap.set(image, { x: 20, y: 20, z: "-=40" });
+//   } else if (index === 3) {
+//     // Bottom right
+//     gsap.set(image, { x: 20, y: -20, z: "-=120" });
+//   }
+
+//   return;
+// };
+
 const setImagesPositions = (image: any, index: any) => {
   if (index === 0) {
     // Top left
-    gsap.set(image, { x: -20, y: 20, z: "-=20" });
+    gsap.set(image, { x: 15, y: 0, z: "-=5" });
   } else if (index === 1) {
     // Bottom left
-    gsap.set(image, { x: -20, y: -20, z: "-=80" });
-  } else if (index === 2) {
-    // Top right
-    gsap.set(image, { x: 20, y: 20, z: "-=40" });
-  } else if (index === 3) {
-    // Bottom right
-    gsap.set(image, { x: 20, y: -20, z: "-=120" });
-  }
-
+    gsap.set(image, { x: -15, y: 0, z: "-=5" });
+  } 
   return;
 };
 
@@ -142,7 +146,7 @@ sectionsInfo.forEach((section, index) => {
 
     const material = new THREE.MeshBasicMaterial({
       //color: 0x404e7c
-      color: 0x00a1d7,
+      color: 0xffffff,
     });
 
     const mesh = new THREE.Mesh(geometry, material);
@@ -155,7 +159,7 @@ sectionsInfo.forEach((section, index) => {
       20,
       20,
       textureLoader.load(image, (texture) => {
-        plane.scale.set(1.0, texture.image.height / texture.image.width, 1.0);
+        plane.scale.set(1.0, texture.image.height / texture.image.width, 5.0);
       })
     );
 
@@ -180,28 +184,28 @@ let mousePerspective = {
   y: 0,
 };
 
-const onMouseMove = (event: any) => {
-  mouse.set(
-    (event.clientX / window.innerWidth) * 2 - 1,
-    (event.clientX / window.innerWidth) * -2 + 1
-  );
+// const onMouseMove = (event: any) => {
+//   mouse.set(
+//     (event.clientX / window.innerWidth) * 2 - 1,
+//     (event.clientX / window.innerWidth) * -2 + 1
+//   );
 
-  raycaster.intersectObjects(intersections, true).forEach((intersection) => {
-    console.log("Over");
-    // intersection.object.scale.divideScalar(1.5);
-  });
+//   raycaster.intersectObjects(intersections, true).forEach((intersection) => {
+//     console.log("Over");
+//     // intersection.object.scale.divideScalar(1.5);
+//   });
 
-  mousePerspective.x = event.clientX / window.innerWidth - 0.5;
-  mousePerspective.y = event.clientY / window.innerHeight - 0.5;
+//   mousePerspective.x = event.clientX / window.innerWidth - 0.5;
+//   mousePerspective.y = event.clientY / window.innerHeight - 0.5;
 
-  gsap.to(camera.rotation, 4, {
-    x: -mousePerspective.y * 0.5,
-    y: -mousePerspective.x * 0.5,
-    ease: "power4.out",
-  });
-};
+//   gsap.to(camera.rotation, 4, {
+//     x: -mousePerspective.y * 0.5,
+//     y: -mousePerspective.x * 0.5,
+//     ease: "power4.out",
+//   });
+// };
 
-window.addEventListener("mousemove", onMouseMove, false);
+// window.addEventListener("mousemove", onMouseMove, false);
 
 const onWindowResize = () => {
   viewport.width = container.clientWidth;
@@ -216,7 +220,7 @@ const onWindowResize = () => {
 window.addEventListener("resize", onWindowResize);
 
 document.addEventListener("mousewheel", (event: any) => {
-  camera.position.z -= (event.deltaY / 10) * 0.25;
+  camera.position.z -= (event.deltaY / 10) * 1;
 });
 
 export const render = () => {
