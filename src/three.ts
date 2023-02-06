@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 
+//JS(Babel)
+
 const container = document.body;
 
 let viewport = {
@@ -12,7 +14,7 @@ let viewport = {
 };
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xb0cec8);
+scene.background = new THREE.Color(0x000000);
 
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
